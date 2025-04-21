@@ -1,2 +1,2 @@
 # trilha-python-dio
-Formação Python Backend Developer - Resolução de Desafio
+Formação Python Backend Developer
