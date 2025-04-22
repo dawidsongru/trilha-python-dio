@@ -35,5 +35,19 @@ def atualizar_registro(conexao, cursor, nome, email, id):
     conexao.commit()
 
 
-atualizar_registro(conexao, cursor, "joao1", "joao1@gmail.com", 1)
-atualizar_registro(conexao, cursor, "paulo1", "paulo1@gmail.com", 2)
+# atualizar_registro(conexao, cursor, "joao1", "joao1@gmail.com", 1)
+# atualizar_registro(conexao, cursor, "paulo1", "paulo1@gmail.com", 2)
+
+
+def excluir_registro(conexao, cursor, id):
+    # Quando for colocar uma tupla com um único valor, inserir uma vírgula
+    data = (id,)
+    cursor.execute(
+        # Digitar comandos SQL em letras maiúsculas
+        "DELETE FROM clientes WHERE id=?;",
+        data
+    )
+    conexao.commit()
+
+
+excluir_registro(conexao, cursor, 1)
