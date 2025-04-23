@@ -5,6 +5,7 @@ ROOT_PATH = Path(__file__).parent
 
 conexao = sqlite3.connect(ROOT_PATH / "meu_banco.sqlite")
 cursor = conexao.cursor()
+cursor.row_factory = sqlite3.Row
 
 
 def criar_tabela(conexao, cursor):
@@ -75,24 +76,35 @@ def inserir_muitos(conexao, cursor, dados):
 #     print(row)
 
 
+# # Recuperar cliente
+# def recuperar_cliente(cursor, id):
+#     cursor.execute("SELECT id, email FROM clientes WHERE id=?", (id,))
+#     return cursor.fetchone()
+
+
+# Recuperar cliente
 def recuperar_cliente(cursor, id):
-    cursor.execute("SELECT id, email FROM clientes WHERE id=?", (id,))
+    # cursor.execute("SELECT * FROM clientes WHERE id=?", (id,))
+    cursor.execute("SELECT nome, id, email FROM clientes WHERE id=?", (id,))
     return cursor.fetchone()
 
 
 def listar_clientes(cursor):
     # Ordem Crescente
-    return cursor.execute("SELECT * FROM clientes ORDER BY nome;")
+    # return cursor.execute("SELECT * FROM clientes ORDER BY nome;")
     # Ordem Decrescente
-    # return cursor.execute("SELECT * FROM clientes ORDER BY nome DESC;")
-
-
-# Retornar apenas os dados do id 2
-# cliente = recuperar_cliente(cursor, 2)
-# print(cliente)
+    return cursor.execute("SELECT * FROM clientes ORDER BY nome DESC;")
 
 
 # Retornar os dados de todos os id's (clientes)
 clientes = listar_clientes(cursor)
 for cliente in clientes:
-    print(cliente)
+    print(dict(cliente))
+
+cliente = recuperar_cliente(cursor, 2)
+print(dict(cliente))
+print(cliente["id"], cliente["nome"], cliente["email"])
+
+
+print(f"Seja bem vindo ao sistema {cliente["nome"]}")
+print(f"Seja bem vindo ao sistema {cliente[1]}")
