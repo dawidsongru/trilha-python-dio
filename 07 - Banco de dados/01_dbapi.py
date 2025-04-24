@@ -108,3 +108,15 @@ print(cliente["id"], cliente["nome"], cliente["email"])
 
 print(f"Seja bem vindo ao sistema {cliente["nome"]}")
 print(f"Seja bem vindo ao sistema {cliente[1]}")
+
+
+# Evite isto:
+id = 1
+cursor.execute("SELECT * FROM minha_tabela WHERE id = " + str(id))
+
+# Faça isto:
+id = 1
+cursor.execute("SELECT * FROM minha_tabela WHERE id = ?", (id,))
+
+
+
