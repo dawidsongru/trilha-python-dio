@@ -19,3 +19,4 @@ clientes = cursor.fetchall()
 
 for cliente in clientes:
     print(dict(cliente))
+
