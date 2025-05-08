@@ -4,16 +4,22 @@ app = Flask(__name__)
 
 @app.route("/olamundo/<usuario>/<int:idade>/<float:altura>")
 def hello_world(usuario, idade, altura):
-    print(idade)
-    print(f"tipo da variável idade: {type(idade)}")
-    print(f"tipo da variável usuario: {type(usuario)}")
-    print(f"tipo da variável altura: {type(altura)}")
-    return f"<h1>Olá mundo! usuário: {usuario.upper()}</h1>"
+    # print(idade)
+    # print(f"tipo da variável idade: {type(idade)}")
+    # print(f"tipo da variável usuario: {type(usuario)}")
+    # print(f"tipo da variável altura: {type(altura)}")
+    # return f"<h1>Olá mundo! usuário: {usuario.upper()}</h1>"
+    return {
+        "Usuario": usuario,
+        "Idade": idade,
+        "Altura": altura,
+    }
 
 
 @app.route("/bemvindo")
 def bem_vindo():
-    return "<h1>Bem-vindo!</h1>"
+    # return "<h1>Bem-vindo!</h1>"
+    return {"message": "Olá mundo!"}
 
 
 @app.route("/projects/")
