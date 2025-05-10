@@ -8,13 +8,10 @@ from flask import Flask, current_app
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
-
 class Base(DeclarativeBase):
   pass
 
-
 db = SQLAlchemy(model_class=Base)
-
 
 class User(db.Model):
     id: Mapped[int] = mapped_column(sa.Integer, primary_key=True)
@@ -22,7 +19,6 @@ class User(db.Model):
     
     def __repr__(self) -> str:
         return f"User(id={self.id!r}, username={self.username!r})"
-
 
 class Post(db.Model):
     id: Mapped[int] = mapped_column(sa.Integer, primary_key=True)
@@ -33,7 +29,6 @@ class Post(db.Model):
 
     def __repr__(self) -> str:
         return f"Post(id={self.id!r}, title={self.title!r}, author_id{self.author_id!r})"
-
 
 @click.command("init-db")
 def init_db_command():
@@ -50,7 +45,7 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY="dev",
-        SQLALCHEMY_DATABASE_URI="sqlite:///dio_bank.sqlite",
+        SQLALCHEMY_DATABASE_URI="sqlite:///blog.sqlite",
     )
 
     if test_config is None:
@@ -69,4 +64,9 @@ def create_app(test_config=None):
     # initialize extensions
     db.init_app(app)
 
+    # register blueprints
+    from controllers import user
+    
+    app.register_blueprint(user.app)
     return app
+    
