@@ -1,19 +1,18 @@
 from http import HTTPStatus
 
 from flask import Blueprint, request
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
 from app import User, db
 
 # localhost:5000/users
 app = Blueprint("user", __name__, url_prefix="/users")
 
-
 def _create_user():
     data = request.json
     user = User(username=data["username"])
     db.session.add(user)
     db.session.commit()
-
 
 def _list_users():
     query = db.select(User)
@@ -26,16 +25,15 @@ def _list_users():
         for user in users
     ]
 
-
 # # localhost:5000/
 @app.route("/", methods=["GET", "POST"])
+@jwt_required()
 def list_or_create_user():
     if request.method == "POST":
         _create_user()
         return {"message": "User created!"}, HTTPStatus.CREATED
     else:
-        return {"users": _list_users()}
-
+        return {"identity": get_jwt_identity(), "users": _list_users()}
 
 @app.route("/<int:user_id>")
 def get_user(user_id):
@@ -67,12 +65,10 @@ def update_user(user_id):
             setattr(user, column.key, data[column.key])
     db.session.commit()
 
-
     return {
         "id": user.id,
         "username": user.username,
     }
-
 
 @app.route("/<int:user_id>", methods=["DELETE"])
 def delete_user(user_id):

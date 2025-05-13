@@ -10,7 +10,8 @@ requires-python = ">=3.11"
 dependencies = [
     "flask",
     "flask-sqlalchemy",
-    "flask-migrate"
+    "flask-migrate",
+    "flask-jwt-extended"
 ]
 
 
