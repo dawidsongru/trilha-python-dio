@@ -11,9 +11,13 @@ dependencies = [
     "flask",
     "flask-sqlalchemy",
     "flask-migrate",
-    "flask-jwt-extended"
+    "flask-jwt-extended",
+    "pytest"
 ]
 
+[tool.pytest.ini_options]
+addopts = "-ra -q"
+testpaths = [tests]
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
