@@ -21,7 +21,9 @@ Estruturação de projetos para GitHub com foco em portfólio técnico
 # Atividades Realizadas:
 
 ✅ Desafios de código para fixação dos conceitos
+
 ✅ Projetos práticos aplicando conhecimentos acumulados
+
 ✅ Repositórios organizados com documentação clara e código versionado
 
 # 🔗 Link do Projeto no GitHub:
